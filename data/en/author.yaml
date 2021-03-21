@@ -1,0 +1,18 @@
+# some information about you
+name: "Henzel Moras"
+nickname: "Henzel"
+# greeting message before your name. it will default to "Hi! I am" if not provided
+greeting: "Hi, I am"
+image: "/images/site/default-avatar.png"
+# give your some contact information. they will be used in the footer
+contactInfo:
+  email: "henzelmoras@gmail.com"
+  #phone: ""
+
+# some summary about what you do
+summary:
+  - Python Developer
+  - System Administrator
+  - Web Security
+  - I love Servers
+  - I love to work on fun projects
