@@ -26,7 +26,7 @@ skills:
 
 - name: Linux System Administration
   logo: "/images/skills/sysadmin.png"
-  summary: "Capable of handling and managing Unix/Linux environment and expertise in several flavours of linux including Red Hat, Ubuntu and Fedora linux."
+  summary: "Capable of handling and managing Unix/Linux environment and expertise in several flavours of linux including Red Hat, Ubuntu and Fedora."
   url: "https://kubernetes.io/"
 
 - name: Git
