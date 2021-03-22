@@ -26,9 +26,9 @@ degrees:
   #- Duis sed massa feugiat, ornare justo et, aliquam est.
   #- Pellentesque ut fringilla magna.
 
-- name: Higher Secondary Certificate
+- name: Higher Secondary Education
   icon: fa-university
-  timeframe: 2010-2012
+  timeframe: 2015-2017
   institution:
     name: St. Andrew's College
     url: "https://standrewscollege.ac.in/"
@@ -37,9 +37,9 @@ degrees:
   #  achieved: 5
   #  outOf: 5
   
-- name: Secondary School Certificate
+- name: Secondary School Education
   icon: fa-school
-  timeframe: 2005-2010
+  timeframe: 2010-2015
   institution:
     name: Holy Cross Convent School 
   #grade: #(optional)
