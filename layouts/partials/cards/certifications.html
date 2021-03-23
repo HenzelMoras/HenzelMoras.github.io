@@ -1,23 +1,36 @@
-<div class="col-xs-12 col-sm-6 col-lg-4 pt-2">
-    <a class="certifications-card-link" href="{{ if .url }}{{ .url }}{{ else }}javascript:void(0){{ end }}">
-      <div class="card">
-        <div class="card-head d-flex">
-          {{ if .logo }}
-            {{ $logoImage := resources.Get .logo }}
-  
-            {{/*  svg don't support "Fit" operation   */}}
-            {{ if ne $logoImage.MediaType.SubType "svg" }}
-              {{ $logoImage := $logoImage.Fit "24x24" }}
+<div
+  class="col-sm-12 col-md-6 col-lg-4 p-2 filtr-item"
+ 
+>
+  <div class="card mt-1">
+    <div class="card">
+      <a class="card-header" href="{{ if .repo }}{{ .repo }}{{ else if .url }}{{ .url }}{{ else }}javascript:void(0){{ end }}">
+        <div>
+          <div class="d-flex">
+            {{ if .logo }}
+
+            {{ $logoImage:= resources.Get .logo}}
+            {{ if $logoImage }}
+            {{ $logoImage := $logoImage.Fit "24x24" }}
+
+            <img class="card-img-xs" src="{{ $logoImage.RelPermalink }}" alt="{{ .title }}" />
             {{ end }}
-  
-            <img class="card-img-xs" src="{{ $logoImage.RelPermalink }}" alt="{{ .name }}" />
-          {{ end }}
-          <h5 class="card-title">{{ .name }}</h5>
+            {{ end }}
+            <h5 class="card-title mb-0">{{ .title }}</h5>
+          </div>
+          <div class="sub-title text-left">
+            {{ .timeline }}
+          </div>
         </div>
-        <div class="card-body">
-          <p class="card-text">{{ .summary | markdownify }}</p>
-        </div>
+      </a>
+      <div class="card-body text-justify pt-1 pb-1">
+        <p>{{ .summary | markdownify }}</p>
+        <!-- Display certificate summary -->
+       
+           
+            <a class="btn btn-info btn-sm" href="{{ .url }}" target="_blank" role="button">see certificate</a>
+        
       </div>
-    </a>
+    </div>
   </div>
-  
+</div>
