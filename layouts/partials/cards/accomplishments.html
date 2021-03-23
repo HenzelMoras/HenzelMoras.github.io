@@ -27,9 +27,9 @@
       <div class="card-body text-justify pl-2 pt-1 pb-1">
         <p>{{ .summary | markdownify }}</p>
         <!-- Display certificate summary -->
-        <button type="button" class="btn btn-outline-info  ml-2 pl-2 mb-3">see certificate</button> 
-            
         
+        <a class="btn btn-outline-info ml-2 pl-2 mb-3" href="{{ .url }}" target="_blank" role="button">see certificate</a>
+
       </div>
     </div>
   </div>

@@ -14,15 +14,17 @@ skills:
 - name: Python
   logo: "/images/skills/python.png"
   summary: "I use it for general purposes such as Web Development, Scripting, and Automation"
+  url: "https://www.python.org/"
 
 - name: Django
   logo: "/images/skills/django.png"
   summary: "I use it for building websites was drawn to it because of Python"
+  url: "https://www.djangoproject.com/"
 
 - name: Bash
   logo: "/images/skills/bash.png"
   summary: "I write scripts for automating certain system tasks and also use it for capture the flags"
-  url: "https://golang.org/"
+  url: "https://www.gnu.org/software/bash/"
 
 - name: Linux System Administration
   logo: "/images/skills/sysadmin.png"
@@ -34,9 +36,6 @@ skills:
   summary: "git-based development. I Mostly, use it for Github to manage my work."
   url: "https://git-scm.com/"
 
-
-
-
 - name: Web Security
   logo: "/images/skills/web.jpeg"
   summary: "knwoledgable about Owasp top 10 and Sans 45"
@@ -46,8 +45,6 @@ skills:
   logo: "/images/skills/docker.png"
   summary: "deploying and creating dockerized container."
   url: "https://www.docker.com/"
-
-
 
 - name: Cloud Computing
   logo: "/images/skills/cloud.png"
