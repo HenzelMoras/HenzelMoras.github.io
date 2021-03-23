@@ -12,7 +12,7 @@ certifications:
 - title: Google IT Automation with Python Specialization
   logo: "/images/certifications/google.png"
   timeline: "Nov 2020"
-  summary: learned to automate IT tasks using python
+  summary: 
   url: https://www.coursera.org/account/accomplishments/specialization/certificate/KFLG39FJD8XN
 
 - title: Palo Alto Networks Cybersecurity Specialization
