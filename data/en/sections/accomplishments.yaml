@@ -1,0 +1,34 @@
+# section information
+section:
+  name: Accomplishments
+  id: Accomplishments
+  enable: true
+  weight: 4
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+certifications:
+- title: Google IT Automation with Python Specialization
+  logo: "/images/certifications/google.png"
+  timeline: "Nov 2020"
+  summary: learned to automate IT tasks using python
+  url: https://www.coursera.org/account/accomplishments/specialization/certificate/KFLG39FJD8XN
+
+- title: Palo Alto Networks Cybersecurity Specialization
+  logo: "/images/certifications/palo-alto.jpeg"
+  timeline: "Jun 2020"
+  summary: 
+  url: https://www.coursera.org/account/accomplishments/specialization/certificate/KWLVAR7WRQ4F
+
+- title: Fundamentals of Computer Network Security Specialization
+  logo: "/images/certifications/colorado.png"
+  timeline: "Jun 2020"
+  summary: 
+  url: https://www.coursera.org/account/accomplishments/specialization/certificate/SYYW82B4V38J
+
+- title: Google IT Support Specialization
+  logo: "/images/certifications/google.png"
+  timeline: "May 2020"
+  summary: 
+  url: https://www.coursera.org/account/accomplishments/specialization/certificate/HFRFDM9EEWPF
