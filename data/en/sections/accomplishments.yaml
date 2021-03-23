@@ -1,7 +1,7 @@
 # section information
 section:
   name: Accomplishments
-  id: Accomplishments
+  id: accomplishments
   enable: true
   weight: 5
   showOnNavbar: true
