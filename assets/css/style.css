@@ -1,0 +1,27 @@
+.certifications-section .card .card-head {
+    background-color: #f9fafc;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    padding: 0.7rem;
+    padding-bottom: 0rem;
+    border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.125);
+  }
+  
+  .certifications-section .skill-card-link {
+    text-decoration: none;
+  }
+  
+  .certifications-section .card .card-img-xs {
+    margin-right: 0.5rem;
+  }
+  
+  .certifications-section .card {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .certifications-section .card .card-body {
+    padding-top: 0.2rem;
+    padding-left: 0.7rem;
+  }
