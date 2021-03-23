@@ -1,0 +1,15 @@
+# section information
+section:
+  name: certifications
+  id: certifications
+  enable: true
+  weight: 4
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+certifications:
+- name: Google python automation professional certificate 
+  #logo:
+  summary: learned to automate it tasks using python
+  #url:
