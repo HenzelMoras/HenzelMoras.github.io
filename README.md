@@ -8,9 +8,10 @@ hugo server -t toha -w
 edit files
 ```
  input vars 
- /data/en/sections/certifications.yaml
+ /data/en/sections/accomplishments.yaml
  
- /assests/css/style.css 
- /layout/partials/sections/certifications.html
- /layout/partials/cards/certifications.html
+ using bootstrap for css
+
+ /layout/partials/sections/accomplishments.html
+ /layout/partials/cards/accomplishments.html
  ```
