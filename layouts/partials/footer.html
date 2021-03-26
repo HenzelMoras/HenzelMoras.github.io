@@ -19,7 +19,6 @@
 {{/*  footer logos  */}}
 {{ $themeLogo := "/images/theme-logo.png" }}
 {{ $hugoLogo := "/images/hugo-logo.svg" }}
-{{ $siteLogo := "/images/site/logo.png" }}
 
 {{/* resize the logos. don't resize svg because it is not supported */}}
 {{ $themeLogo:= resources.Get $themeLogo}}
@@ -33,13 +32,6 @@
   {{ $hugoLogo = $hugoLogo.Resize "32x" }}
 {{ end }}
 {{ $hugoLogo = $hugoLogo.RelPermalink}}
-
-{{ $siteLogo:= resources.Get $siteLogo}}
-{{ if and $siteLogo (ne $siteLogo.MediaType.SubType "svg")}}
-  {{ $siteLogo = $siteLogo.Resize "32x" }}
-{{ end }}
-{{ $siteLogo = $siteLogo.RelPermalink}}
-
 
 <footer class="container-fluid text-center align-content-center footer pb-2">
   <div class="container pt-5">
@@ -100,8 +92,8 @@
   <div class="container">
     <div class="row text-left">
       <div class="col-md-4">
-        <a id="theme" href="#home" target="#">
-          <img src="{{ $siteLogo }}">
+        <a id="theme" href="#" target="#">
+         
          Henzel Moras
         </a>
         
