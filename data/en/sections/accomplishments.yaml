@@ -3,32 +3,44 @@ section:
   name: Accomplishments
   id: accomplishments
   enable: true
-  weight: 5
+  weight:  5
   showOnNavbar: true
-  # Can optionally hide the title in sections
-  # hideTitle: true
+  # Can optionally hide the name in sections
+  # hidename: true
 
-certifications:
-- title: Google IT Automation with Python Specialization
+accomplishments:
+- name: Google IT Automation with Python Specialization
   logo: "/images/certifications/google.png"
   timeline: "Nov 2020"
-  summary: 
-  url: https://www.coursera.org/account/accomplishments/specialization/certificate/KFLG39FJD8XN
+  organization:
+    name: Coursera
+    url: https://www.coursera.org/
+  courseOverview: 
+  certificateURL: https://www.coursera.org/account/accomplishments/specialization/certificate/KFLG39FJD8XN
 
-- title: Palo Alto Networks Cybersecurity Specialization
+- name: Palo Alto Networks Cybersecurity Specialization
   logo: "/images/certifications/palo-alto.jpeg"
   timeline: "Jun 2020"
-  summary: 
-  url: https://www.coursera.org/account/accomplishments/specialization/certificate/KWLVAR7WRQ4F
+  organization:
+    name: Coursera
+    url: https://www.coursera.org/
+  courseOverview: 
+  certificateURL: https://www.coursera.org/account/accomplishments/specialization/certificate/KWLVAR7WRQ4F
 
-- title: Fundamentals of Computer Network Security Specialization
+- name: Fundamentals of Computer Network Security Specialization
   logo: "/images/certifications/colorado.png"
   timeline: "Jun 2020"
-  summary: 
-  url: https://www.coursera.org/account/accomplishments/specialization/certificate/SYYW82B4V38J
+  organization:
+    name: Coursera
+    url: https://www.coursera.org/
+  courseOverview: 
+  certificateURL: https://www.coursera.org/account/accomplishments/specialization/certificate/SYYW82B4V38J
 
-- title: Google IT Support Specialization
+- name: Google IT Support Specialization
   logo: "/images/certifications/google.png"
   timeline: "May 2020"
-  summary: 
-  url: https://www.coursera.org/account/accomplishments/specialization/certificate/HFRFDM9EEWPF
+  organization:
+    name: Coursera
+    url: https://www.coursera.org/
+  courseOverview: 
+  certificateURL: https://www.coursera.org/account/accomplishments/specialization/certificate/HFRFDM9EEWPF
