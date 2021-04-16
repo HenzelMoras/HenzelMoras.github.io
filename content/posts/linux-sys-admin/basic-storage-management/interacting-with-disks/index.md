@@ -144,8 +144,8 @@ Each record in the **/etc/fstab** file contains white space separated files of
 - `Mount point`This can also be a placeholder, like for swap, which is not mounted anywhere.
 - `fs type`Filesystem type (i.e., ext4, xfs, btrfs, vfat)
 - A comma-separated list of options e.g.(noauto,x-systemd.automount,x-systemd.device-timeout=10,x-systemd.idle-timeout=3)
-- **`dump`**frequency (or a 0)This is used by the rarely used **`dump -w`** command.
-- **`fsck`**pass number (or 0, meaning do not check state at boot).
+- **`dump`** frequency (or a 0)This is used by the rarely used **`dump -w`** command.
+- **`fsck`** pass number (or 0, meaning do not check state at boot).
 
 ### Fsck
 
