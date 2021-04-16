@@ -1,10 +1,10 @@
 ---
-title: Storage Management Overview
+title: Storage Overview
 date:
 menu:
     sidebar:
-        name: Storage Management Overview
-        identifier: storage-management-overview
+        name: Storage Overview
+        identifier: storage-overview
         parent: basic-storage-management
         weight: 2
 ---
