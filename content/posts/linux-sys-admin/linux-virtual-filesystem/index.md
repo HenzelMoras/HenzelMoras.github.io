@@ -1,7 +1,6 @@
 ---
 title: Linux Virtual Filesystem
 hero: images/rainbow.png
-description: MBR 
 menu:
     sidebar:
         name: Linux Virtual Filesystem
