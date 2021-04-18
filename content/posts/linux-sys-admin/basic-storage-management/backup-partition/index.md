@@ -1,6 +1,7 @@
 ---
 title: Backup Partition
 hero: images/me.jpg
+date: 2021-04-16
 menu:
     sidebar:
         name: Backup Partition

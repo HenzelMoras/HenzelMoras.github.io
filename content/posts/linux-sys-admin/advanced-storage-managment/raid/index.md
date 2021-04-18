@@ -1,6 +1,6 @@
 ---
 title: RAID
-date:
+date: 2021-04-18
 hero: images/gun.jpg
 menu:
     sidebar:

@@ -1,5 +1,6 @@
 ---
 title: Why Disk Partition ?
+date: 2021-04-17
 menu:
     sidebar:
         name: Why Disk Partition ?

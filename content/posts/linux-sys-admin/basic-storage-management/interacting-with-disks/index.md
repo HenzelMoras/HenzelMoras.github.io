@@ -1,7 +1,8 @@
 ---
 title: Interacting With Disks
 hero: images/force.png
-menu:
+date: 2021-04-17
+menu: 
     sidebar:
         name: Interacting With Disks
         identifier: interacting-with-disks

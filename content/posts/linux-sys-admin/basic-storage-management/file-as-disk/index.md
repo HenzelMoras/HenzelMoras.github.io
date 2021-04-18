@@ -1,6 +1,6 @@
 ---
 title: File As Disk
-date:
+date: 2021-04-17
 hero: images/juice.jpg
 menu:
     sidebar:

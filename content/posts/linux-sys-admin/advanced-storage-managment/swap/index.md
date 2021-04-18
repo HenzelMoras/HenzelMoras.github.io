@@ -1,7 +1,7 @@
 ---
 title: swap
 hero: images/thugh.png
-date:
+date: 2021-04-18
 menu:
     sidebar:
         name: swap

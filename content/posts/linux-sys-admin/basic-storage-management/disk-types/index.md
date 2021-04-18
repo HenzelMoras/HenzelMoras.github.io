@@ -1,5 +1,6 @@
 ---
 title: Disk Types
+date: 2021-04-17
 menu:
     sidebar:
         name: Disk Types

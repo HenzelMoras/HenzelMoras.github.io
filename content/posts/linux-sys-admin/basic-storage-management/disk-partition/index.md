@@ -1,7 +1,7 @@
 ---
 title: Disk Partition
 hero: images/tiny.jpg
-date:
+date: 2021-04-17
 menu:
     sidebar:
         name: Disk Partition

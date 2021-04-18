@@ -1,6 +1,7 @@
 ---
 title: Linux Virtual Filesystem
 hero: images/rainbow.png
+date: 2021-04-16
 menu:
     sidebar:
         name: Linux Virtual Filesystem

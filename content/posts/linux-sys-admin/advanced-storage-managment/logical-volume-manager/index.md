@@ -1,6 +1,6 @@
 ---
 title: Logical Volume Manager
-date:
+date: 2021-04-18
 hero: images/night.jpg
 menu: 
     sidebar:
