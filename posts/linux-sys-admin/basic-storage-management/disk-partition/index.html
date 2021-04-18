@@ -1,0 +1,177 @@
+<!doctype html><html><head><title>Disk Partition</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="ie=edge"><link rel=stylesheet href=/css/bootstrap.min.css><link rel=stylesheet href=/css/layouts/main.css><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/navigators/navbar.css><link rel=stylesheet href=/css/plyr.css><link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel=stylesheet><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css><link rel=icon type=image/png href=/images/site/logo_hu46080cd0c725e203453795b794b5609d_25299_42x0_resize_box_2.png><link rel=stylesheet href=/css/style.css><meta name=description content="Disk Partition"><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css><link rel=stylesheet href=/css/layouts/single.css><link rel=stylesheet href=/css/navigators/sidebar.css></head><body data-spy=scroll data-target=#TableOfContents data-offset=80><div class="container-fluid bg-dimmed wrapper"><nav class="navbar navbar-expand-xl top-navbar final-navbar shadow"><div class=container><button class="navbar-toggler navbar-light" id=sidebar-toggler type=button onclick=toggleSidebar()>
+<span class=navbar-toggler-icon></span></button>
+<a class=navbar-brand href=/><img src=/images/site/logo_hu46080cd0c725e203453795b794b5609d_25299_42x0_resize_box_2.png alt=Logo>Henzel Moras</a>
+<button class="navbar-toggler navbar-light" id=toc-toggler type=button onclick=toggleTOC()>
+<span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse lang-selector" id=top-nav-items><ul class="navbar-nav ml-auto"></ul></div></div><img src=/images/site/logo_hu46080cd0c725e203453795b794b5609d_25299_42x0_resize_box_2.png class=d-none id=main-logo alt=Logo>
+<img src=/images/site/logo_hu46080cd0c725e203453795b794b5609d_25299_42x0_resize_box_2.png class=d-none id=inverted-logo alt="Inverted Logo"></nav><section class=sidebar-section id=sidebar-section><div class=sidebar-holder><div class=sidebar id=sidebar><form class=mx-auto method=get action=https://henzelmoras.github.io/search><input type=text name=keyword placeholder=Search data-search id=search-box></form><div class=sidebar-tree><ul class=tree id=tree><li id=list-heading><a href=/posts data-filter=all>Posts</a></li><div class=subtree><li><i class="fas fa-minus-circle"></i><a class=active href=/posts/linux-sys-admin/>Linux Sys Admin</a><ul class=active><li><a href=/posts/linux-sys-admin/linux-virtual-filesystem/>Linux Virtual Filesystem</a></li><li><i class="fas fa-minus-circle"></i><a class=active href=/posts/linux-sys-admin/basic-storage-management/>Basic Storage Partition</a><ul class=active><li><a href=/posts/linux-sys-admin/basic-storage-management/why-disk-partition/>Why Disk Partition ?</a></li><li><a href=/posts/linux-sys-admin/basic-storage-management/storage-overview/>Storage Overview</a></li><li><a href=/posts/linux-sys-admin/basic-storage-management/disk-types/>Disk Types</a></li><li><a href=/posts/linux-sys-admin/basic-storage-management/interacting-with-disks/>Interacting With Disks</a></li><li><a class=active href=/posts/linux-sys-admin/basic-storage-management/disk-partition/>Disk Partition</a></li><li><a href=/posts/linux-sys-admin/basic-storage-management/backup-partition/>Backup Partition</a></li><li><a href=/posts/linux-sys-admin/basic-storage-management/file-as-disk/>File As Disk</a></li></ul></li><li><i class="fas fa-plus-circle"></i><a href=/posts/linux-sys-admin/advanced-storage-managment/>Advanced Storage Partition</a><ul><li><a href=/posts/linux-sys-admin/advanced-storage-managment/logical-volume-manager/>LVM</a></li><li><a href=/posts/linux-sys-admin/advanced-storage-managment/raid/>RAID</a></li><li><a href=/posts/linux-sys-admin/advanced-storage-managment/swap/>swap</a></li><li><a href=/posts/linux-sys-admin/advanced-storage-managment/quotas/>Quotas</a></li><li><a href=/posts/linux-sys-admin/advanced-storage-managment/encryption/>Encryption</a></li></ul></li></ul></li></div></ul></div></div></div></section><section class=content-section id=content-section><div class=content><div class="container p-0 read-area"><div class="hero-area col-sm-12" id=hero-area style=background-image:url(https://henzelmoras.github.io/posts/linux-sys-admin/basic-storage-management/disk-partition/images/tiny.jpg)></div><div class=page-content><div class="author-profile ml-auto align-self-lg-center"><img class=rounded-circle src=/images/site/default-avatar.png alt="Author Image"><h5 class=author-name>Henzel Moras</h5><p>April 17, 2021</p></div><div class=title><h1>Disk Partition</h1></div><div class=post-content id=post-content><h3 id=how-to>How to</h3><p>many utilities are available to partition disks , we will be using fdisk to make partitions on disk.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash> <span style=color:#75715e># list disks</span>
+<span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ lsblk
+NAME        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda           8:0    <span style=color:#ae81ff>0</span> 21.3G  <span style=color:#ae81ff>0</span> disk 
+├─sda1        8:1    <span style=color:#ae81ff>0</span>    1G  <span style=color:#ae81ff>0</span> part /boot
+└─sda2        8:2    <span style=color:#ae81ff>0</span> 20.3G  <span style=color:#ae81ff>0</span> part 
+  ├─cl-root 253:0    <span style=color:#ae81ff>0</span> 18.3G  <span style=color:#ae81ff>0</span> lvm  /
+  └─cl-swap 253:1    <span style=color:#ae81ff>0</span>  2.1G  <span style=color:#ae81ff>0</span> lvm  <span style=color:#f92672>[</span>SWAP<span style=color:#f92672>]</span>
+sdb           8:16   <span style=color:#ae81ff>0</span>    2G  <span style=color:#ae81ff>0</span> disk 
+sr0          11:0    <span style=color:#ae81ff>1</span> 1024M  <span style=color:#ae81ff>0</span> rom  
+sr1          11:1    <span style=color:#ae81ff>1</span> 1024M  <span style=color:#ae81ff>0</span> rom
+</code></pre></div><p>we will be using <strong>/dev/sdb</strong> in this tutorial</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># using fdisk</span>
+
+<span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo fdisk /dev/sdb
+
+Welcome to fdisk <span style=color:#f92672>(</span>util-linux 2.32.1<span style=color:#f92672>)</span>.
+Changes will remain in memory only, <span style=color:#66d9ef>until</span> you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table.
+Created a new DOS disklabel with disk identifier 0x5b1cda85.
+
+<span style=color:#75715e># type m to list options</span>
+
+Command <span style=color:#f92672>(</span>m <span style=color:#66d9ef>for</span> help<span style=color:#f92672>)</span>: m
+
+Help:
+
+  DOS <span style=color:#f92672>(</span>MBR<span style=color:#f92672>)</span>
+   a   toggle a bootable flag
+   b   edit nested BSD disklabel
+   c   toggle the dos compatibility flag
+
+  Generic
+   d   delete a partition
+   F   list free unpartitioned space
+   l   list known partition types
+   n   add a new partition
+   p   print the partition table
+   t   change a partition type
+   v   verify the partition table
+   i   print information about a partition
+
+  Misc
+   m   print this menu
+   u   change display/entry units
+   x   extra functionality <span style=color:#f92672>(</span>experts only<span style=color:#f92672>)</span>
+
+  Script
+   I   load disk layout from sfdisk script file
+   O   dump disk layout to sfdisk script file
+
+  Save &amp; Exit
+   w   write table to disk and exit
+   q   quit without saving changes
+
+  Create a new label
+   g   create a new empty GPT partition table
+   G   create a new empty SGI <span style=color:#f92672>(</span>IRIX<span style=color:#f92672>)</span> partition table
+   o   create a new empty DOS partition table
+   s   create a new empty Sun partition table
+</code></pre></div><h3 id=create-partitions>Create Partitions</h3><p>create 3 new primary partitions</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>Command <span style=color:#f92672>(</span>m <span style=color:#66d9ef>for</span> help<span style=color:#f92672>)</span>: n
+Partition type
+   p   primary <span style=color:#f92672>(</span><span style=color:#ae81ff>0</span> primary, <span style=color:#ae81ff>0</span> extended, <span style=color:#ae81ff>4</span> free<span style=color:#f92672>)</span>
+   e   extended <span style=color:#f92672>(</span>container <span style=color:#66d9ef>for</span> logical partitions<span style=color:#f92672>)</span>
+Select <span style=color:#f92672>(</span>default p<span style=color:#f92672>)</span>: p
+Partition number <span style=color:#f92672>(</span>1-4, default 1<span style=color:#f92672>)</span>: 
+First sector <span style=color:#f92672>(</span>2048-4194303, default 2048<span style=color:#f92672>)</span>: 
+Last sector, +sectors or +size<span style=color:#f92672>{</span>K,M,G,T,P<span style=color:#f92672>}</span> <span style=color:#f92672>(</span>2048-4194303, default 4194303<span style=color:#f92672>)</span>: +256M
+
+Created a new partition <span style=color:#ae81ff>1</span> of type <span style=color:#e6db74>&#39;Linux&#39;</span> and of size <span style=color:#ae81ff>256</span> MiB.
+
+Command <span style=color:#f92672>(</span>m <span style=color:#66d9ef>for</span> help<span style=color:#f92672>)</span>: n
+Partition type
+   p   primary <span style=color:#f92672>(</span><span style=color:#ae81ff>1</span> primary, <span style=color:#ae81ff>0</span> extended, <span style=color:#ae81ff>3</span> free<span style=color:#f92672>)</span>
+   e   extended <span style=color:#f92672>(</span>container <span style=color:#66d9ef>for</span> logical partitions<span style=color:#f92672>)</span>
+Select <span style=color:#f92672>(</span>default p<span style=color:#f92672>)</span>: p
+Partition number <span style=color:#f92672>(</span>2-4, default 2<span style=color:#f92672>)</span>: 
+First sector <span style=color:#f92672>(</span>526336-4194303, default 526336<span style=color:#f92672>)</span>: 
+Last sector, +sectors or +size<span style=color:#f92672>{</span>K,M,G,T,P<span style=color:#f92672>}</span> <span style=color:#f92672>(</span>526336-4194303, default 4194303<span style=color:#f92672>)</span>: +256M
+
+Created a new partition <span style=color:#ae81ff>2</span> of type <span style=color:#e6db74>&#39;Linux&#39;</span> and of size <span style=color:#ae81ff>256</span> MiB.
+
+Command <span style=color:#f92672>(</span>m <span style=color:#66d9ef>for</span> help<span style=color:#f92672>)</span>: n
+Partition type
+   p   primary <span style=color:#f92672>(</span><span style=color:#ae81ff>2</span> primary, <span style=color:#ae81ff>0</span> extended, <span style=color:#ae81ff>2</span> free<span style=color:#f92672>)</span>
+   e   extended <span style=color:#f92672>(</span>container <span style=color:#66d9ef>for</span> logical partitions<span style=color:#f92672>)</span>
+Select <span style=color:#f92672>(</span>default p<span style=color:#f92672>)</span>: p
+Partition number <span style=color:#f92672>(</span>3,4, default 3<span style=color:#f92672>)</span>: 
+First sector <span style=color:#f92672>(</span>1050624-4194303, default 1050624<span style=color:#f92672>)</span>: 
+Last sector, +sectors or +size<span style=color:#f92672>{</span>K,M,G,T,P<span style=color:#f92672>}</span> <span style=color:#f92672>(</span>1050624-4194303, default 4194303<span style=color:#f92672>)</span>: 
+
+Created a new partition <span style=color:#ae81ff>3</span> of type <span style=color:#e6db74>&#39;Linux&#39;</span> and of size 1.5 GiB.
+</code></pre></div><h3 id=list-partition>List partition</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>Command <span style=color:#f92672>(</span>m <span style=color:#66d9ef>for</span> help<span style=color:#f92672>)</span>: p
+Disk /dev/sdb: <span style=color:#ae81ff>2</span> GiB, <span style=color:#ae81ff>2147483648</span> bytes, <span style=color:#ae81ff>4194304</span> sectors
+Units: sectors of <span style=color:#ae81ff>1</span> * 512 <span style=color:#f92672>=</span> <span style=color:#ae81ff>512</span> bytes
+Sector size <span style=color:#f92672>(</span>logical/physical<span style=color:#f92672>)</span>: <span style=color:#ae81ff>512</span> bytes / <span style=color:#ae81ff>512</span> bytes
+I/O size <span style=color:#f92672>(</span>minimum/optimal<span style=color:#f92672>)</span>: <span style=color:#ae81ff>512</span> bytes / <span style=color:#ae81ff>512</span> bytes
+Disklabel type: dos
+Disk identifier: 0x5b1cda85
+
+Device     Boot   Start     End Sectors  Size Id Type
+/dev/sdb1          <span style=color:#ae81ff>2048</span>  <span style=color:#ae81ff>526335</span>  <span style=color:#ae81ff>524288</span>  256M <span style=color:#ae81ff>83</span> Linux
+/dev/sdb2        <span style=color:#ae81ff>526336</span> <span style=color:#ae81ff>1050623</span>  <span style=color:#ae81ff>524288</span>  256M <span style=color:#ae81ff>83</span> Linux
+/dev/sdb3       <span style=color:#ae81ff>1050624</span> <span style=color:#ae81ff>4194303</span> <span style=color:#ae81ff>3143680</span>  1.5G <span style=color:#ae81ff>83</span> Linux
+</code></pre></div><h3 id=write-to-disk>Write to disk</h3><p>confirm the settings by writting to disk</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>Command <span style=color:#f92672>(</span>m <span style=color:#66d9ef>for</span> help<span style=color:#f92672>)</span>: w
+The partition table has been altered.
+Calling ioctl<span style=color:#f92672>()</span> to re-read partition table.
+Syncing disks.
+</code></pre></div><h3 id=review-changes>Review changes</h3><p>lets check our changes</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ lsblk | grep sdb*
+sda           8:0    <span style=color:#ae81ff>0</span> 21.3G  <span style=color:#ae81ff>0</span> disk 
+├─sda1        8:1    <span style=color:#ae81ff>0</span>    1G  <span style=color:#ae81ff>0</span> part /boot
+└─sda2        8:2    <span style=color:#ae81ff>0</span> 20.3G  <span style=color:#ae81ff>0</span> part 
+sdb           8:16   <span style=color:#ae81ff>0</span>    2G  <span style=color:#ae81ff>0</span> disk 
+├─sdb1        8:17   <span style=color:#ae81ff>0</span>  256M  <span style=color:#ae81ff>0</span> part 
+├─sdb2        8:18   <span style=color:#ae81ff>0</span>  256M  <span style=color:#ae81ff>0</span> part 
+└─sdb3        8:19   <span style=color:#ae81ff>0</span>  1.5G  <span style=color:#ae81ff>0</span> part
+
+</code></pre></div><h3 id=place-a-filesystem-on-disk>Place a Filesystem on Disk</h3><p>lets put filesystem on our newly created partitions</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo mkfs.ext4 /dev/sdb1 
+mke2fs 1.45.6 <span style=color:#f92672>(</span>20-Mar-2020<span style=color:#f92672>)</span>
+Creating filesystem with <span style=color:#ae81ff>262144</span> 1k blocks and <span style=color:#ae81ff>65536</span> inodes
+Filesystem UUID: 68ea7cfb-7d8d-4fb9-a40d-6c16ff282367
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729, 204801, <span style=color:#ae81ff>221185</span>
+
+Allocating group tables: <span style=color:#66d9ef>done</span>                            
+Writing inode tables: <span style=color:#66d9ef>done</span>                            
+Creating journal <span style=color:#f92672>(</span><span style=color:#ae81ff>8192</span> blocks<span style=color:#f92672>)</span>: <span style=color:#66d9ef>done</span>
+Writing superblocks and filesystem accounting information: <span style=color:#66d9ef>done</span> 
+
+<span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo mkfs.ext4 /dev/sdb2 
+mke2fs 1.45.6 <span style=color:#f92672>(</span>20-Mar-2020<span style=color:#f92672>)</span>
+Creating filesystem with <span style=color:#ae81ff>262144</span> 1k blocks and <span style=color:#ae81ff>65536</span> inodes
+Filesystem UUID: 0159b426-cea0-40c0-85d4-670be5da567a
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729, 204801, <span style=color:#ae81ff>221185</span>
+
+Allocating group tables: <span style=color:#66d9ef>done</span>                            
+Writing inode tables: <span style=color:#66d9ef>done</span>                            
+Creating journal <span style=color:#f92672>(</span><span style=color:#ae81ff>8192</span> blocks<span style=color:#f92672>)</span>: <span style=color:#66d9ef>done</span>
+Writing superblocks and filesystem accounting information: <span style=color:#66d9ef>done</span> 
+
+<span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo mkfs.ext4 /dev/sdb3
+mke2fs 1.45.6 <span style=color:#f92672>(</span>20-Mar-2020<span style=color:#f92672>)</span>
+Creating filesystem with <span style=color:#ae81ff>392960</span> 4k blocks and <span style=color:#ae81ff>98304</span> inodes
+Filesystem UUID: 6fbbcc36-35bf-4959-b60f-b041b3eb09d6
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, <span style=color:#ae81ff>294912</span>
+
+Allocating group tables: <span style=color:#66d9ef>done</span>                            
+Writing inode tables: <span style=color:#66d9ef>done</span>                            
+Creating journal <span style=color:#f92672>(</span><span style=color:#ae81ff>8192</span> blocks<span style=color:#f92672>)</span>: <span style=color:#66d9ef>done</span>
+Writing superblocks and filesystem accounting information: don
+</code></pre></div><h3 id=creating-mount-points>Creating Mount Points</h3><h1 id=lets-create-mount-points>lets create mount points</h1><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ mkdir mnt1 mnt2 mnt3
+</code></pre></div><h3 id=mount-partition>Mount partition</h3><p>lets mount them</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo mount /dev/sdb1 mnt1
+<span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo mount /dev/sdb2 mnt2
+<span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo mount /dev/sdb3 mnt3
+</code></pre></div><h3 id=check-mount>Check Mount</h3><p>lets check whether they were mounted</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ df -Th | grep <span style=color:#e6db74>&#34;mnt*&#34;</span>
+/dev/sdb1           ext4      240M  2.1M  222M   1% /home/s0x45ker/mnt1
+/dev/sdb2           ext4      240M  2.1M  222M   1% /home/s0x45ker/mnt2
+/dev/sdb3           ext4      1.5G  4.5M  1.4G   1% /home/s0x45ker/mnt3
+</code></pre></div><h3 id=unmount-partition>Unmount partition</h3><p>unmount after using them</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo umount mnt1 mnt2 mnt3 
+</code></pre></div><h3 id=delete-mount-dir>Delete mount dir</h3><p>delete the mount points</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ rmdir mnt*
+</code></pre></div><h3 id=rechcek>Rechcek</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ df -Th | grep <span style=color:#e6db74>&#34;mnt*&#34;</span>
+<span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$
+</code></pre></div></div><div class=btn-improve-page><a href=https://github.com/HenzelMoras/HenzelMoras.github.io.git/edit/source/content/posts/linux-sys-admin/basic-storage-management/disk-partition/index.md target=_blank><i class="fas fa-code-branch"></i>Improve this page</a></div><hr><div class="row next-prev-navigator"><div class="col-md-6 previous-article"><a href=/posts/linux-sys-admin/advanced-storage-managment/swap/ class="btn btn-outline-info"><div><i class="fas fa-chevron-circle-left"></i>Prev</div><div class=next-prev-text>swap</div></a></div><div class="col-md-6 next-article"><a href=/posts/linux-sys-admin/basic-storage-management/disk-types/ class="btn btn-outline-info"><div>Next <i class="fas fa-chevron-circle-right"></i></div><div class=next-prev-text>Disk Types</div></a></div></div><hr><div id=disqus_thread></div><script type=text/javascript>(function(){if(window.location.hostname=="localhost")return;var dsq=document.createElement("script");dsq.type="text/javascript";dsq.async=true;var disqus_shortname="does-not-exist";dsq.src="//"+disqus_shortname+".disqus.com/embed.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the
+<a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></div></div><a id=scroll-to-top class=btn><i class="fas fa-chevron-circle-up"></i></a></section><section class=toc-section id=toc-section><div class=toc-holder><h5 class="text-center pl-3">Table of Contents</h5><hr><div class=toc><nav id=TableOfContents><ul><li><ul><li><a href=#how-to>How to</a></li><li><a href=#create-partitions>Create Partitions</a></li><li><a href=#list-partition>List partition</a></li><li><a href=#write-to-disk>Write to disk</a></li><li><a href=#review-changes>Review changes</a></li><li><a href=#place-a-filesystem-on-disk>Place a Filesystem on Disk</a></li><li><a href=#creating-mount-points>Creating Mount Points</a></li></ul></li></ul><ul><li><ul><li><a href=#mount-partition>Mount partition</a></li><li><a href=#check-mount>Check Mount</a></li><li><a href=#unmount-partition>Unmount partition</a></li><li><a href=#delete-mount-dir>Delete mount dir</a></li><li><a href=#rechcek>Rechcek</a></li></ul></li></ul></nav></div></div></section></div><footer class="container-fluid text-center align-content-center footer pb-2"><div class="container pt-5"><div class="row text-left"><div class="col-md-4 col-sm-12"><h5>Navigation</h5><ul><li class=nav-item><a class=smooth-scroll href=#about>About</a></li><li class=nav-item><a class=smooth-scroll href=#skills>Skills</a></li><li class=nav-item><a class=smooth-scroll href=#education>Education</a></li><li class=nav-item><a class=smooth-scroll href=#projects>Projects</a></li><li class=nav-item><a class=smooth-scroll href=#accomplishments>Accomplishments</a></li><li class=nav-item><a class=smooth-scroll href=#recent-posts>Recent Posts</a></li></ul></div><div class="col-md-4 col-sm-12"><h5>Contact me:</h5><ul><li><span>Email:</span> <span>henzelmoras@gmail.com</span></li></ul></div><div class="col-md-4 col-sm-12"><p>Stay up to date with email notification</p><form><div class=form-group><input type=email class=form-control id=exampleInputEmail1 aria-describedby=emailHelp placeholder="Enter email">
+<small id=emailHelp class="form-text text-muted">We'll never share your email with anyone else.</small></div><button type=submit class="btn btn-info">Submit</button></form></div></div></div><hr><div class=container><div class="row text-left"><div class=col-md-4><a id=theme href=#home target=#><img src=/images/site/logo_hu46080cd0c725e203453795b794b5609d_25299_32x0_resize_box_2.png>
+Henzel Moras</a></div><div class="col-md-4 text-center">© 2021 Copyright.</div><div class="col-md-4 text-right"><a id=hugo href=https://gohugo.io/>Powered by
+<img src=/images/hugo-logo.svg alt="Hugo Logo" height=18></a>
+<a id=theme href=https://github.com/hossainemruz/toha target=#><img src=/images/theme-logo_hu8376fd15465fef26ffe66b6bcf0ca686_13669_32x0_resize_box_2.png>
+Toha</a></div></div></div></footer><script type=text/javascript src=/js/jquery-3.4.1.min.js></script><script type=text/javascript src=/js/popper.min.js></script><script type=text/javascript src=/js/bootstrap.min.js></script><script type=text/javascript src=/js/navbar.js></script><script type=text/javascript src=/js/plyr.js></script><script type=text/javascript src=/js/main.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js></script><script src=/js/single.js></script><script>hljs.initHighlightingOnLoad();</script></body></html>

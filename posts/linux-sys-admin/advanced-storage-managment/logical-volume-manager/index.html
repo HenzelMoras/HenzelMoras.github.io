@@ -1,0 +1,258 @@
+<!doctype html><html><head><title>Logical Volume Manager</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="ie=edge"><link rel=stylesheet href=/css/bootstrap.min.css><link rel=stylesheet href=/css/layouts/main.css><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/navigators/navbar.css><link rel=stylesheet href=/css/plyr.css><link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel=stylesheet><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css><link rel=icon type=image/png href=/images/site/logo_hu46080cd0c725e203453795b794b5609d_25299_42x0_resize_box_2.png><link rel=stylesheet href=/css/style.css><meta name=description content="Logical Volume Manager"><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css><link rel=stylesheet href=/css/layouts/single.css><link rel=stylesheet href=/css/navigators/sidebar.css></head><body data-spy=scroll data-target=#TableOfContents data-offset=80><div class="container-fluid bg-dimmed wrapper"><nav class="navbar navbar-expand-xl top-navbar final-navbar shadow"><div class=container><button class="navbar-toggler navbar-light" id=sidebar-toggler type=button onclick=toggleSidebar()>
+<span class=navbar-toggler-icon></span></button>
+<a class=navbar-brand href=/><img src=/images/site/logo_hu46080cd0c725e203453795b794b5609d_25299_42x0_resize_box_2.png alt=Logo>Henzel Moras</a>
+<button class="navbar-toggler navbar-light" id=toc-toggler type=button onclick=toggleTOC()>
+<span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse lang-selector" id=top-nav-items><ul class="navbar-nav ml-auto"></ul></div></div><img src=/images/site/logo_hu46080cd0c725e203453795b794b5609d_25299_42x0_resize_box_2.png class=d-none id=main-logo alt=Logo>
+<img src=/images/site/logo_hu46080cd0c725e203453795b794b5609d_25299_42x0_resize_box_2.png class=d-none id=inverted-logo alt="Inverted Logo"></nav><section class=sidebar-section id=sidebar-section><div class=sidebar-holder><div class=sidebar id=sidebar><form class=mx-auto method=get action=https://henzelmoras.github.io/search><input type=text name=keyword placeholder=Search data-search id=search-box></form><div class=sidebar-tree><ul class=tree id=tree><li id=list-heading><a href=/posts data-filter=all>Posts</a></li><div class=subtree><li><i class="fas fa-minus-circle"></i><a class=active href=/posts/linux-sys-admin/>Linux Sys Admin</a><ul class=active><li><a href=/posts/linux-sys-admin/linux-virtual-filesystem/>Linux Virtual Filesystem</a></li><li><i class="fas fa-plus-circle"></i><a href=/posts/linux-sys-admin/basic-storage-management/>Basic Storage Partition</a><ul><li><a href=/posts/linux-sys-admin/basic-storage-management/why-disk-partition/>Why Disk Partition ?</a></li><li><a href=/posts/linux-sys-admin/basic-storage-management/storage-overview/>Storage Overview</a></li><li><a href=/posts/linux-sys-admin/basic-storage-management/disk-types/>Disk Types</a></li><li><a href=/posts/linux-sys-admin/basic-storage-management/interacting-with-disks/>Interacting With Disks</a></li><li><a href=/posts/linux-sys-admin/basic-storage-management/disk-partition/>Disk Partition</a></li><li><a href=/posts/linux-sys-admin/basic-storage-management/backup-partition/>Backup Partition</a></li><li><a href=/posts/linux-sys-admin/basic-storage-management/file-as-disk/>File As Disk</a></li></ul></li><li><i class="fas fa-minus-circle"></i><a class=active href=/posts/linux-sys-admin/advanced-storage-managment/>Advanced Storage Partition</a><ul class=active><li><a class=active href=/posts/linux-sys-admin/advanced-storage-managment/logical-volume-manager/>LVM</a></li><li><a href=/posts/linux-sys-admin/advanced-storage-managment/raid/>RAID</a></li><li><a href=/posts/linux-sys-admin/advanced-storage-managment/swap/>swap</a></li><li><a href=/posts/linux-sys-admin/advanced-storage-managment/quotas/>Quotas</a></li><li><a href=/posts/linux-sys-admin/advanced-storage-managment/encryption/>Encryption</a></li></ul></li></ul></li></div></ul></div></div></div></section><section class=content-section id=content-section><div class=content><div class="container p-0 read-area"><div class="hero-area col-sm-12" id=hero-area style=background-image:url(https://henzelmoras.github.io/posts/linux-sys-admin/advanced-storage-managment/logical-volume-manager/images/night.jpg)></div><div class=page-content><div class="author-profile ml-auto align-self-lg-center"><img class=rounded-circle src=/images/site/default-avatar.png alt="Author Image"><h5 class=author-name>Henzel Moras</h5><p>April 18, 2021</p></div><div class=title><h1>Logical Volume Manager</h1></div><div class=post-content id=post-content><h3 id=about-logical-volume-manager>About Logical Volume Manager</h3><p>One or more physical volumes (disk partitions) are grouped together into a volume group. Then, the volume group is subdivided into logical volumes, which mimic to the system nominal physical disk partitions and can be formatted to contain mountable filesystems.</p><p>Logical volumes are created by putting all the devices into a large pool of disk space (the volume group), and then allocating space from the pool to create a logical volume.</p><p>LVM has better scalability than RAID: logical volumes can easily be resized; i.e., enlarged or shrunk, as needs require. If more space is needed, additional devices can be added to the logical volume at any time.</p><p><img src=images/lvm.png alt=lvm-diagram></p><h3 id=lvm-components>LVM Components</h3><p>There are a number of command line utilities used to create and manipulate volume groups, whose name always start with <strong>vg</strong>, including:</p><ul><li><strong>vgcreate</strong>: Creates volume groups.</li><li><strong>vgextend</strong>: Adds to volume groups.</li><li><strong>vgreduce</strong>: Shrinks volume groups.</li></ul><p>Utilities that manipulate what physical partitions enter or leave volume groups start with <strong>pv</strong> and include:</p><ul><li><strong>pvcreate</strong>: Converts a partition to a physical volume.</li><li><strong>pvdisplay</strong>: Shows the physical volumes being used.</li><li><strong>pvmove</strong>: Moves the data from one physical volume within the volume group to others; this might be required if a disk or partition is being removed for some reason. It would then be followed by:</li><li><strong>pvremove</strong>: Remove a partition from a physical volume.</li></ul><p>Typing <strong>man lvm</strong> will give a full list of LVM utilities.</p><p>or</p><p>check /sbin/<utility></p><p>/sbin/pv*</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo ls -lf /sbin/pv*
+/sbin/pvchange	/sbin/pvcreate	 /sbin/pvmove	 /sbin/pvresize  /sbin/pvscan
+/sbin/pvck	/sbin/pvdisplay  /sbin/pvremove  /sbin/pvs
+</code></pre></div><p>/sbin/vg*</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo ls -lf /sbin/vg*
+/sbin/vgcfgbackup   /sbin/vgcreate   /sbin/vgimportclone  /sbin/vgrename
+/sbin/vgcfgrestore  /sbin/vgdisplay  /sbin/vgmerge	  /sbin/vgs
+/sbin/vgchange	    /sbin/vgexport   /sbin/vgmknodes	  /sbin/vgscan
+/sbin/vgck	    /sbin/vgextend   /sbin/vgreduce	  /sbin/vgsplit
+/sbin/vgconvert     /sbin/vgimport   /sbin/vgremove
+</code></pre></div><p>/sbin/lv*</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo ls -lf /sbin/lv*
+/sbin/lvchange	 /sbin/lvm	    /sbin/lvmsadc   /sbin/lvresize
+/sbin/lvconvert  /sbin/lvmconfig    /sbin/lvmsar    /sbin/lvs
+/sbin/lvcreate	 /sbin/lvmdiskscan  /sbin/lvreduce  /sbin/lvscan
+/sbin/lvdisplay  /sbin/lvmdump	    /sbin/lvremove
+/sbin/lvextend	 /sbin/lvmpolld     /sbin/lvrename
+</code></pre></div><h3 id=create-lvm>Create LVM</h3><p>lets make use of /dev/sdb partitions</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ lsblk /dev/sdb
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sdb      8:16   <span style=color:#ae81ff>0</span>    2G  <span style=color:#ae81ff>0</span> disk 
+├─sdb1   8:17   <span style=color:#ae81ff>0</span>  256M  <span style=color:#ae81ff>0</span> part 
+├─sdb2   8:18   <span style=color:#ae81ff>0</span>  256M  <span style=color:#ae81ff>0</span> part 
+└─sdb3   8:19   <span style=color:#ae81ff>0</span>  1.5G  <span style=color:#ae81ff>0</span> part
+</code></pre></div><h3 id=create-physical-volumes>Create Physical Volumes</h3><p>lets create pv groups</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo pvcreate /dev/sdb1 
+WARNING: ext4 signature detected on /dev/sdb1 at offset 1080. Wipe it? <span style=color:#f92672>[</span>y/n<span style=color:#f92672>]</span>: y
+  Wiping ext4 signature on /dev/sdb1.
+  Physical volume <span style=color:#e6db74>&#34;/dev/sdb1&#34;</span> successfully created.
+<span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo pvcreate /dev/sdb2 
+WARNING: ext4 signature detected on /dev/sdb2 at offset 1080. Wipe it? <span style=color:#f92672>[</span>y/n<span style=color:#f92672>]</span>: y
+  Wiping ext4 signature on /dev/sdb2.
+  Physical volume <span style=color:#e6db74>&#34;/dev/sdb2&#34;</span> successfully created.
+<span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo pvcreate /dev/sdb3
+WARNING: ext4 signature detected on /dev/sdb3 at offset 1080. Wipe it? <span style=color:#f92672>[</span>y/n<span style=color:#f92672>]</span>: y
+  Wiping ext4 signature on /dev/sdb3.
+  Physical volume <span style=color:#e6db74>&#34;/dev/sdb3&#34;</span> successfully created.
+</code></pre></div><h3 id=display-pv>Display PV</h3><p>lets display them</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo pvdisplay
+  --- Physical volume ---
+  PV Name               /dev/sda2
+  VG Name               cl
+  PV Size               &lt;20.32 GiB / not usable <span style=color:#ae81ff>0</span>   
+  Allocatable           yes <span style=color:#f92672>(</span>but full<span style=color:#f92672>)</span>
+  PE Size               4.00 MiB
+  Total PE              <span style=color:#ae81ff>5201</span>
+  Free PE               <span style=color:#ae81ff>0</span>
+  Allocated PE          <span style=color:#ae81ff>5201</span>
+  PV UUID               HkaGdc-0SM4-q58B-GLpF-yBKh-dluM-Zb7psU
+   
+  <span style=color:#e6db74>&#34;/dev/sdb1&#34;</span> is a new physical volume of <span style=color:#e6db74>&#34;256.00 MiB&#34;</span>
+  --- NEW Physical volume ---
+  PV Name               /dev/sdb1
+  VG Name               
+  PV Size               256.00 MiB
+  Allocatable           NO
+  PE Size               <span style=color:#ae81ff>0</span>   
+  Total PE              <span style=color:#ae81ff>0</span>
+  Free PE               <span style=color:#ae81ff>0</span>
+  Allocated PE          <span style=color:#ae81ff>0</span>
+  PV UUID               r4DxPp-DwXw-MTKV-0rgJ-wslR-WvXf-ddTp95
+   
+  <span style=color:#e6db74>&#34;/dev/sdb2&#34;</span> is a new physical volume of <span style=color:#e6db74>&#34;256.00 MiB&#34;</span>
+  --- NEW Physical volume ---
+  PV Name               /dev/sdb2
+  VG Name               
+  PV Size               256.00 MiB
+  Allocatable           NO
+  PE Size               <span style=color:#ae81ff>0</span>   
+  Total PE              <span style=color:#ae81ff>0</span>
+  Free PE               <span style=color:#ae81ff>0</span>
+  Allocated PE          <span style=color:#ae81ff>0</span>
+  PV UUID               p1MmuS-FtMY-TSfc-QTs0-f5kQ-8H02-G2hAkM
+   
+  <span style=color:#e6db74>&#34;/dev/sdb3&#34;</span> is a new physical volume of <span style=color:#e6db74>&#34;&lt;1.50 GiB&#34;</span>
+  --- NEW Physical volume ---
+  PV Name               /dev/sdb3
+  VG Name               
+  PV Size               &lt;1.50 GiB
+  Allocatable           NO
+  PE Size               <span style=color:#ae81ff>0</span>   
+  Total PE              <span style=color:#ae81ff>0</span>
+  Free PE               <span style=color:#ae81ff>0</span>
+  Allocated PE          <span style=color:#ae81ff>0</span>
+  PV UUID               Sg0adM-I34I-WdtH-FSBh-fv4E-6v0q-MfwpBh
+</code></pre></div><h3 id=create-volume-groups>Create Volume Groups</h3><p>lets create vg groups</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo vgcreate myvgName /dev/sdb1 /dev/sdb2
+  Volume group <span style=color:#e6db74>&#34;myvgName&#34;</span> successfully created
+</code></pre></div><h3 id=display-volume-groups>Display Volume Groups</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo vgdisplay 
+  --- Volume group ---
+  VG Name               myvgName
+  System ID             
+  Format                lvm2
+  Metadata Areas        <span style=color:#ae81ff>2</span>
+  Metadata Sequence No  <span style=color:#ae81ff>2</span>
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                <span style=color:#ae81ff>0</span>
+  Cur LV                <span style=color:#ae81ff>1</span>
+  Open LV               <span style=color:#ae81ff>0</span>
+  Max PV                <span style=color:#ae81ff>0</span>
+  Cur PV                <span style=color:#ae81ff>2</span>
+  Act PV                <span style=color:#ae81ff>2</span>
+  VG Size               504.00 MiB
+  PE Size               4.00 MiB
+  Total PE              <span style=color:#ae81ff>126</span>
+  Alloc PE / Size       <span style=color:#ae81ff>125</span> / 500.00 MiB
+  Free  PE / Size       <span style=color:#ae81ff>1</span> / 4.00 MiB
+  VG UUID               22zcce-qKWO-LsZ4-NsIK-2LaG-BihC-PXpOu3
+   
+  --- Volume group ---
+  VG Name               cl
+  System ID             
+  Format                lvm2
+  Metadata Areas        <span style=color:#ae81ff>1</span>
+  Metadata Sequence No  <span style=color:#ae81ff>3</span>
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                <span style=color:#ae81ff>0</span>
+  Cur LV                <span style=color:#ae81ff>2</span>
+  Open LV               <span style=color:#ae81ff>2</span>
+  Max PV                <span style=color:#ae81ff>0</span>
+  Cur PV                <span style=color:#ae81ff>1</span>
+  Act PV                <span style=color:#ae81ff>1</span>
+  VG Size               &lt;20.32 GiB
+  PE Size               4.00 MiB
+  Total PE              <span style=color:#ae81ff>5201</span>
+  Alloc PE / Size       <span style=color:#ae81ff>5201</span> / &lt;20.32 GiB
+  Free  PE / Size       <span style=color:#ae81ff>0</span> / <span style=color:#ae81ff>0</span>   
+  VG UUID               KE3I02-N1rq-Jt6O-EfGT-jFFc-thKG-Bu7w0V
+</code></pre></div><h3 id=create-logical-volumes>Create Logical Volumes</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo lvcreate -L 500M -n mylvmName myvgName
+  Logical volume <span style=color:#e6db74>&#34;mylvmName&#34;</span> created.
+</code></pre></div><h3 id=display-logical-volumes>Display Logical Volumes</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo lvdisplay
+  --- Logical volume ---
+  LV Path                /dev/myvgName/mylvmName
+  LV Name                mylvmName
+  VG Name                myvgName
+  LV UUID                O3Tq2d-Ncn6-Ek56-ZJv5-l6pg-Cf25-4dcc4D
+  LV Write Access        read/write
+  LV Creation host, time localhost.localdomain, 2021-04-17 12:50:40 +0530
+  LV Status              available
+  <span style=color:#75715e># open                 0</span>
+  LV Size                500.00 MiB
+  Current LE             <span style=color:#ae81ff>125</span>
+  Segments               <span style=color:#ae81ff>2</span>
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     <span style=color:#ae81ff>8192</span>
+  Block device           253:2
+   
+  --- Logical volume ---
+  LV Path                /dev/cl/swap
+  LV Name                swap
+  VG Name                cl
+  LV UUID                U40evz-UBNH-NuhE-6vn9-yW96-cC2B-1xgZgW
+  LV Write Access        read/write
+  LV Creation host, time localhost, 2020-11-12 19:37:26 +0530
+  LV Status              available
+  <span style=color:#75715e># open                 2</span>
+  LV Size                &lt;2.07 GiB
+  Current LE             <span style=color:#ae81ff>529</span>
+  Segments               <span style=color:#ae81ff>1</span>
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     <span style=color:#ae81ff>8192</span>
+  Block device           253:1
+   
+  --- Logical volume ---
+  LV Path                /dev/cl/root
+  LV Name                root
+  VG Name                cl
+  LV UUID                pfO1zZ-tB1E-a0p1-SCa9-68nu-jwMc-vK316T
+  LV Write Access        read/write
+  LV Creation host, time localhost, 2020-11-12 19:37:26 +0530
+  LV Status              available
+  <span style=color:#75715e># open                 1</span>
+  LV Size                18.25 GiB
+  Current LE             <span style=color:#ae81ff>4672</span>
+  Segments               <span style=color:#ae81ff>1</span>
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     <span style=color:#ae81ff>8192</span>
+  Block device           253:0
+</code></pre></div><h3 id=put-a-filesystem-on-lvm>Put A Filesystem on LVM</h3><p>using mkfs</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo mkfs.ext4 /dev/myvgName/mylvmName
+mke2fs 1.45.6 <span style=color:#f92672>(</span>20-Mar-2020<span style=color:#f92672>)</span>
+Creating filesystem with <span style=color:#ae81ff>512000</span> 1k blocks and <span style=color:#ae81ff>128016</span> inodes
+Filesystem UUID: b8106acd-3151-408b-9c73-e2d1fdf8191e
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729, 204801, 221185, <span style=color:#ae81ff>401409</span>
+
+Allocating group tables: <span style=color:#66d9ef>done</span>                            
+Writing inode tables: <span style=color:#66d9ef>done</span>                            
+Creating journal <span style=color:#f92672>(</span><span style=color:#ae81ff>8192</span> blocks<span style=color:#f92672>)</span>: <span style=color:#66d9ef>done</span>
+Writing superblocks and filesystem accounting information: <span style=color:#66d9ef>done</span>
+</code></pre></div><h3 id=create-dir-for-mount>Create Dir for Mount</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo mkdir /mylvmpnt
+</code></pre></div><h3 id=mount-filesystem>Mount Filesystem</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo mount /dev/myvgName/mylvmName /mylvmpnt
+</code></pre></div><h3 id=check-filesystem-mount>Check Filesystem mount</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ df -Th | grep lvm
+/dev/mapper/myvgName-mylvmName ext4      477M  2.3M  445M   1% /mylvmpnt
+</code></pre></div><h3 id=make-persistent-mount>Make persistent Mount</h3><p>using fstab</p><p><code>[s0x45ker--*(+*+)_--SysAdmin ~]$ sudo nano /etc/fstab</code></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e>#</span>
+<span style=color:#75715e># /etc/fstab</span>
+<span style=color:#75715e># Created by anaconda on Thu Nov 12 19:37:28 2020</span>
+<span style=color:#75715e>#</span>
+<span style=color:#75715e># Accessible filesystems, by reference, are maintained under &#39;/dev/disk/&#39;.</span>
+<span style=color:#75715e># See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info.</span>
+<span style=color:#75715e>#</span>
+<span style=color:#75715e># After editing this file, run &#39;systemctl daemon-reload&#39; to update systemd</span>
+<span style=color:#75715e># units generated from this file.</span>
+<span style=color:#75715e>#</span>
+/dev/mapper/cl-root     /                       xfs     defaults        <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span>
+UUID<span style=color:#f92672>=</span>03f520f5-2aec-411c-a15b-3e2f62ffc37c /boot ext4    defaults        <span style=color:#ae81ff>1</span> <span style=color:#ae81ff>2</span>
+/dev/mapper/cl-swap     swap                    swap    defaults        <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span>
+
+/dev/myvgName/mylvmName	/mylvmpnt               ext4    defaults        <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span>
+</code></pre></div><h3 id=extent-lvm>Extent LVM</h3><p>using lvresize</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo lvresize -r -L +200M /dev/myvgName/mylvmName
+  Insufficient free space: <span style=color:#ae81ff>50</span> extents needed, but only <span style=color:#ae81ff>1</span> available
+</code></pre></div><h3 id=extend-volume-group>Extend Volume Group</h3><p>lets resize Volume Group</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo vgextend myvgName /dev/sdb3
+  Volume group <span style=color:#e6db74>&#34;myvgName&#34;</span> successfully extended
+</code></pre></div><p>display extended vg</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo vgdisplay myvgName
+  --- Volume group ---
+  VG Name               myvgName
+  System ID             
+  Format                lvm2
+  Metadata Areas        <span style=color:#ae81ff>3</span>
+  Metadata Sequence No  <span style=color:#ae81ff>3</span>
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                <span style=color:#ae81ff>0</span>
+  Cur LV                <span style=color:#ae81ff>1</span>
+  Open LV               <span style=color:#ae81ff>1</span>
+  Max PV                <span style=color:#ae81ff>0</span>
+  Cur PV                <span style=color:#ae81ff>3</span>
+  Act PV                <span style=color:#ae81ff>3</span>
+  VG Size               &lt;1.99 GiB
+  PE Size               4.00 MiB
+  Total PE              <span style=color:#ae81ff>509</span>
+  Alloc PE / Size       <span style=color:#ae81ff>125</span> / 500.00 MiB
+  Free  PE / Size       <span style=color:#ae81ff>384</span> / 1.50 GiB
+  VG UUID               22zcce-qKWO-LsZ4-NsIK-2LaG-BihC-PXpOu3
+</code></pre></div><h3 id=finally-lets-our-lvm>Finally lets our LVM</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo lvresize -r -L +200M /dev/myvgName/mylvmName
+  Size of logical volume myvgName/mylvmName changed from 500.00 MiB <span style=color:#f92672>(</span><span style=color:#ae81ff>125</span> extents<span style=color:#f92672>)</span> to 700.00 MiB <span style=color:#f92672>(</span><span style=color:#ae81ff>175</span> extents<span style=color:#f92672>)</span>.
+  Logical volume myvgName/mylvmName successfully resized.
+resize2fs 1.45.6 <span style=color:#f92672>(</span>20-Mar-2020<span style=color:#f92672>)</span>
+Filesystem at /dev/mapper/myvgName-mylvmName is mounted on /mylvmpnt; on-line resizing required
+old_desc_blocks <span style=color:#f92672>=</span> 4, new_desc_blocks <span style=color:#f92672>=</span> <span style=color:#ae81ff>6</span>
+The filesystem on /dev/mapper/myvgName-mylvmName is now <span style=color:#ae81ff>716800</span> <span style=color:#f92672>(</span>1k<span style=color:#f92672>)</span> blocks long.
+</code></pre></div><h3 id=create-lvm-snapshot>Create LVM Snapshot</h3><p>LVM snapshots create an exact copy of an existing logical volume. They are useful for backups, application testing, and deploying VMs (Virtual Machines). The original state of the snapshot is kept as the block map.</p><p>Snapshots only use space for storing deltas:</p><ul><li>When the original logical volume changes, original data blocks are copied to the snapshot.</li><li>If data is added to snapshot, it is stored only there.</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ sudo lvcreate -l <span style=color:#ae81ff>128</span> -s -n mysnap /dev/myvgName/mylvmName
+  Logical volume <span style=color:#e6db74>&#34;mysnap&#34;</span> created.
+</code></pre></div><p>check snap</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$ df -Th | grep mysnap
+/dev/mapper/myvgName-mysnap    ext4      670M  2.5M  631M   1% /mnt
+</code></pre></div><h3 id=delete-snapshot-or-any-lvm>Delete Snapshot or Any LVM</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>[</span>s0x45ker--_<span style=color:#f92672>(</span>+_+<span style=color:#f92672>)</span>_--SysAdmin ~<span style=color:#f92672>]</span>$  sudo lvremove /dev/myvgName/mysnap
+Do you really want to remove active logical volume myvgName/mysnap? <span style=color:#f92672>[</span>y/n<span style=color:#f92672>]</span>: y
+  Logical volume <span style=color:#e6db74>&#34;mysnap&#34;</span> successfully removed
+</code></pre></div></div><div class=btn-improve-page><a href=https://github.com/HenzelMoras/HenzelMoras.github.io.git/edit/source/content/posts/linux-sys-admin/advanced-storage-managment/logical-volume-manager/index.md target=_blank><i class="fas fa-code-branch"></i>Improve this page</a></div><hr><div class="row next-prev-navigator"><div class="col-md-6 previous-article"><a href=/posts/linux-sys-admin/advanced-storage-managment/encryption/ class="btn btn-outline-info"><div><i class="fas fa-chevron-circle-left"></i>Prev</div><div class=next-prev-text>Encryption</div></a></div><div class="col-md-6 next-article"><a href=/posts/linux-sys-admin/advanced-storage-managment/quotas/ class="btn btn-outline-info"><div>Next <i class="fas fa-chevron-circle-right"></i></div><div class=next-prev-text>Quotas</div></a></div></div><hr><div id=disqus_thread></div><script type=text/javascript>(function(){if(window.location.hostname=="localhost")return;var dsq=document.createElement("script");dsq.type="text/javascript";dsq.async=true;var disqus_shortname="does-not-exist";dsq.src="//"+disqus_shortname+".disqus.com/embed.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the
+<a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></div></div><a id=scroll-to-top class=btn><i class="fas fa-chevron-circle-up"></i></a></section><section class=toc-section id=toc-section><div class=toc-holder><h5 class="text-center pl-3">Table of Contents</h5><hr><div class=toc><nav id=TableOfContents><ul><li><ul><li><a href=#about-logical-volume-manager>About Logical Volume Manager</a></li><li><a href=#lvm-components>LVM Components</a></li><li><a href=#create-lvm>Create LVM</a></li><li><a href=#create-physical-volumes>Create Physical Volumes</a></li><li><a href=#display-pv>Display PV</a></li><li><a href=#create-volume-groups>Create Volume Groups</a></li><li><a href=#display-volume-groups>Display Volume Groups</a></li><li><a href=#create-logical-volumes>Create Logical Volumes</a></li><li><a href=#display-logical-volumes>Display Logical Volumes</a></li><li><a href=#put-a-filesystem-on-lvm>Put A Filesystem on LVM</a></li><li><a href=#create-dir-for-mount>Create Dir for Mount</a></li><li><a href=#mount-filesystem>Mount Filesystem</a></li><li><a href=#check-filesystem-mount>Check Filesystem mount</a></li><li><a href=#make-persistent-mount>Make persistent Mount</a></li><li><a href=#extent-lvm>Extent LVM</a></li><li><a href=#extend-volume-group>Extend Volume Group</a></li><li><a href=#finally-lets-our-lvm>Finally lets our LVM</a></li><li><a href=#create-lvm-snapshot>Create LVM Snapshot</a></li><li><a href=#delete-snapshot-or-any-lvm>Delete Snapshot or Any LVM</a></li></ul></li></ul></nav></div></div></section></div><footer class="container-fluid text-center align-content-center footer pb-2"><div class="container pt-5"><div class="row text-left"><div class="col-md-4 col-sm-12"><h5>Navigation</h5><ul><li class=nav-item><a class=smooth-scroll href=#about>About</a></li><li class=nav-item><a class=smooth-scroll href=#skills>Skills</a></li><li class=nav-item><a class=smooth-scroll href=#education>Education</a></li><li class=nav-item><a class=smooth-scroll href=#projects>Projects</a></li><li class=nav-item><a class=smooth-scroll href=#accomplishments>Accomplishments</a></li><li class=nav-item><a class=smooth-scroll href=#recent-posts>Recent Posts</a></li></ul></div><div class="col-md-4 col-sm-12"><h5>Contact me:</h5><ul><li><span>Email:</span> <span>henzelmoras@gmail.com</span></li></ul></div><div class="col-md-4 col-sm-12"><p>Stay up to date with email notification</p><form><div class=form-group><input type=email class=form-control id=exampleInputEmail1 aria-describedby=emailHelp placeholder="Enter email">
+<small id=emailHelp class="form-text text-muted">We'll never share your email with anyone else.</small></div><button type=submit class="btn btn-info">Submit</button></form></div></div></div><hr><div class=container><div class="row text-left"><div class=col-md-4><a id=theme href=#home target=#><img src=/images/site/logo_hu46080cd0c725e203453795b794b5609d_25299_32x0_resize_box_2.png>
+Henzel Moras</a></div><div class="col-md-4 text-center">© 2021 Copyright.</div><div class="col-md-4 text-right"><a id=hugo href=https://gohugo.io/>Powered by
+<img src=/images/hugo-logo.svg alt="Hugo Logo" height=18></a>
+<a id=theme href=https://github.com/hossainemruz/toha target=#><img src=/images/theme-logo_hu8376fd15465fef26ffe66b6bcf0ca686_13669_32x0_resize_box_2.png>
+Toha</a></div></div></div></footer><script type=text/javascript src=/js/jquery-3.4.1.min.js></script><script type=text/javascript src=/js/popper.min.js></script><script type=text/javascript src=/js/bootstrap.min.js></script><script type=text/javascript src=/js/navbar.js></script><script type=text/javascript src=/js/plyr.js></script><script type=text/javascript src=/js/main.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js></script><script src=/js/single.js></script><script>hljs.initHighlightingOnLoad();</script></body></html>
