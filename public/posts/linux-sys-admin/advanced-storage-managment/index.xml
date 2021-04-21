@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Advanced Storage Management on Henzel Moras</title>
+    <link>https://henzelmoras.github.io/posts/linux-sys-admin/advanced-storage-managment/</link>
+    <description>Recent content in Advanced Storage Management on Henzel Moras</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Apr 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://henzelmoras.github.io/posts/linux-sys-admin/advanced-storage-managment/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Encryption</title>
+      <link>https://henzelmoras.github.io/posts/linux-sys-admin/advanced-storage-managment/encryption/</link>
+      <pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://henzelmoras.github.io/posts/linux-sys-admin/advanced-storage-managment/encryption/</guid>
+      <description>Why Use Encryption? Encryption should be used wherever sensitive data is being stored and transmitted. Configuring and using block device level encryption provides one of the strongest protections against harm caused by loss or compromise of data contained in hard drives and other media.
+Modern Linux distributions offer the choice of encrypting all or some of your disk partitions during installation. It is also straightforward to create and format encrypted partitions at a later time, but you cannot encrypt an already existing partition in place without a data copying operation.</description>
+    </item>
+    
+    <item>
+      <title>Logical Volume Manager</title>
+      <link>https://henzelmoras.github.io/posts/linux-sys-admin/advanced-storage-managment/logical-volume-manager/</link>
+      <pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://henzelmoras.github.io/posts/linux-sys-admin/advanced-storage-managment/logical-volume-manager/</guid>
+      <description>About Logical Volume Manager One or more physical volumes (disk partitions) are grouped together into a volume group. Then, the volume group is subdivided into logical volumes, which mimic to the system nominal physical disk partitions and can be formatted to contain mountable filesystems.
+Logical volumes are created by putting all the devices into a large pool of disk space (the volume group), and then allocating space from the pool to create a logical volume.</description>
+    </item>
+    
+    <item>
+      <title>Quotas</title>
+      <link>https://henzelmoras.github.io/posts/linux-sys-admin/advanced-storage-managment/quotas/</link>
+      <pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://henzelmoras.github.io/posts/linux-sys-admin/advanced-storage-managment/quotas/</guid>
+      <description>Filesystem Quotas Linux can use and enforce quotas on filesystems. Disk quotas allow administrators to control the maximum space particular users (or groups) are allowed. Considerable flexibility is allowed and quotas can be assigned on a per filesystem basis. Protection is provided against a subset of users exhausting collective resources.
+Utilities  quotacheck  quotacheck generates and updates quota accounting files.
+  quotaon  quotaon enables quota accounting.
+  quotaoff  quotaoff disables quota accounting.</description>
+    </item>
+    
+    <item>
+      <title>RAID</title>
+      <link>https://henzelmoras.github.io/posts/linux-sys-admin/advanced-storage-managment/raid/</link>
+      <pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://henzelmoras.github.io/posts/linux-sys-admin/advanced-storage-managment/raid/</guid>
+      <description>About RAID Three essential features of RAID are:
+ mirroring: writing the same data to more than one disk striping: splitting of data to more than one disk parity: extra data is stored to allow problem detection and repair, yielding fault tolerance.  Thus, use of RAID can improve both performance and reliability.
+mdadm is used to create and manage RAID devices.
+Once created, the array name, /dev/mdX, can be used just like any other device, such as /dev/sdb1.</description>
+    </item>
+    
+    <item>
+      <title>swap</title>
+      <link>https://henzelmoras.github.io/posts/linux-sys-admin/advanced-storage-managment/swap/</link>
+      <pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://henzelmoras.github.io/posts/linux-sys-admin/advanced-storage-managment/swap/</guid>
+      <description>About Swap Linux employs a virtual memory system, in which the operating system can function as if it had more memory than it really does. This kind of memory overcommission functions in two ways:
+ Many programs do not actually use all the memory they are given permission to use. Sometimes, this is because child processes inherit a copy of the parent&amp;rsquo;s memory regions utilizing a COW (Copy On Write) technique, in which the child only obtains a unique copy (on a page-by-page basis) when there is a change.</description>
+    </item>
+    
+  </channel>
+</rss>

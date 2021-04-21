@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux Sys Admin on Henzel Moras</title>
+    <link>https://henzelmoras.github.io/posts/linux-sys-admin/</link>
+    <description>Recent content in Linux Sys Admin on Henzel Moras</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Apr 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://henzelmoras.github.io/posts/linux-sys-admin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linux Virtual Filesystem</title>
+      <link>https://henzelmoras.github.io/posts/linux-sys-admin/linux-virtual-filesystem/</link>
+      <pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://henzelmoras.github.io/posts/linux-sys-admin/linux-virtual-filesystem/</guid>
+      <description>Application programs read and write files , rather than dealing with physical locations on the actual hardware on which files are stored. Filesystems create a usable format on physical partition.
+Files and their names are an abstraction camouflaging the physical I/O layer.
+A UNIX-like filesystem uses a tree hierarchy:
+ Directories contain files and/or other directories Every path or node is under the root directory.  Multiple filesystems may be (and usually are) merged together into a single tree structure.</description>
+    </item>
+    
+  </channel>
+</rss>
