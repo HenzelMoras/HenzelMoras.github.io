@@ -37,7 +37,7 @@ markup:
 #googleAnalytics: UA-XXXXXXXXX-X
 
 # Enable Disqus forum
-disqusShortname: does-not-exist
+#disqusShortname: does-not-exist
 
 # Enable global emoji support
 enableEmoji: true
