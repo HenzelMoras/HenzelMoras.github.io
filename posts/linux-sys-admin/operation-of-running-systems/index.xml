@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Operation of Running Systems on Henzel Moras</title><link>https://henzelmoras.github.io/posts/linux-sys-admin/operation-of-running-systems/</link><description>Recent content in Operation of Running Systems on Henzel Moras</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 22 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://henzelmoras.github.io/posts/linux-sys-admin/operation-of-running-systems/index.xml" rel="self" type="application/rss+xml"/><item><title>Boot Process</title><link>https://henzelmoras.github.io/posts/linux-sys-admin/operation-of-running-systems/boot-process/</link><pubDate>Thu, 22 Apr 2021 00:00:00 +0000</pubDate><guid>https://henzelmoras.github.io/posts/linux-sys-admin/operation-of-running-systems/boot-process/</guid><description>In this post we will take about the boot process of linux OS
+Stages There are 4 Stages and they are:
+The Firmware Phase (BIOS and UEFI integrity check) (POST)
+The Bootloader Phase
+The Kernel Phase (initialization)
+Starting Systemd, the parent of all processes
+Firmware Phase The firmware is the BIOS (Basic Input/Output System) or the UEFI (Unified Extensible Firmware Interface) code that is stored in flash memory on the mother board.</description></item></channel></rss>
