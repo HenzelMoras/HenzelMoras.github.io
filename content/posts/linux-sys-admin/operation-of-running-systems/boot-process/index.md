@@ -27,7 +27,7 @@ There are 4 Stages and they are:
 
 The firmware is the BIOS (Basic Input/Output System) or the UEFI (Unified Extensible Firmware Interface) code that is stored in flash memory on the mother board. 
 
-It runs Power-On-Self-Test (POST) to detect, test, and initialize system hardware components (HDD or SSD, Keyboard, RAM, USB ports etc) later it locats for a boot device that contains the bootloader program .
+It runs Power-On-Self-Test (POST) to detect, test, and initialize system hardware components (HDD or SSD, Keyboard, RAM, USB ports etc) later it locates for a boot device that contains the bootloader program .
 
 As soon as it finds as it discovers usable boot device, it loads the bootloader into memory and passes control over to it.
 
