@@ -34,10 +34,10 @@ markup:
     ordered: false
 
 # Enable Google Analytics
-#googleAnalytics: UA-XXXXXXXXX-X
+googleAnalytics: G-0EF8BRBSL1
 
 # Enable Disqus forum
-#disqusShortname: does-not-exist
+disqusShortname: s0x45ker
 
 # Enable global emoji support
 enableEmoji: true
