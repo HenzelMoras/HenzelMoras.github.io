@@ -62,5 +62,5 @@ projects:
   role: owner
   repo: https://github.com/HenzelMoras/HenzelMoras.github.io
   url: "https://github.com/HenzelMoras/HenzelMoras.github.io"
-  summary: My Personal blog in which i write about system Administration, Web security and Programming in general
+  summary: blog in which i write about system Administration, Web security and Programming in general
   tags: ["javascript", "css", "html", "opensource", "hobby"]
