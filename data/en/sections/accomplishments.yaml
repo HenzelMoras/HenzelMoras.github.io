@@ -15,7 +15,7 @@ accomplishments:
   organization:
     name: Coursera
     url: https://www.coursera.org/
-  courseOverview: 
+  courseOverview: Crash Course on Python, Troubleshooting and Debugging Techniques, Configuration Management and the Cloud, Introduction to Git and GitHub, Automating Real-World Tasks with Python, Using Python to Interact with the Operating System
   certificateURL: https://www.coursera.org/account/accomplishments/specialization/certificate/KFLG39FJD8XN
 
 - name: Palo Alto Networks Cybersecurity Specialization
@@ -24,7 +24,7 @@ accomplishments:
   organization:
     name: Coursera
     url: https://www.coursera.org/
-  courseOverview: 
+  courseOverview: Deploying VPNs and SSL/SSH encryption, Managing and configuring a zero-trust environment, Analyzing firewall logs and configuring security controls, Configuring network protection and dynamic routing using firewalls, Mitigating vulnerabilities using packet capture and analysis
   certificateURL: https://www.coursera.org/account/accomplishments/specialization/certificate/KWLVAR7WRQ4F
 
 - name: Fundamentals of Computer Network Security Specialization
@@ -33,7 +33,7 @@ accomplishments:
   organization:
     name: Coursera
     url: https://www.coursera.org/
-  courseOverview: 
+  courseOverview: Design and Analyze Secure Networked Systems, Basic Cryptography and Programming with Crypto API, Hacking and Patching, Secure Networked System with Firewall and IDS
   certificateURL: https://www.coursera.org/account/accomplishments/specialization/certificate/SYYW82B4V38J
 
 - name: Google IT Support Specialization
@@ -42,5 +42,5 @@ accomplishments:
   organization:
     name: Coursera
     url: https://www.coursera.org/
-  courseOverview: 
+  courseOverview: System Administration and IT Infrastructure Services, Technical Support Fundamentals, The Bits and Bytes of Computer Networking, IT Security Defense, Operating Systems and You Becoming a Power User
   certificateURL: https://www.coursera.org/account/accomplishments/specialization/certificate/HFRFDM9EEWPF
