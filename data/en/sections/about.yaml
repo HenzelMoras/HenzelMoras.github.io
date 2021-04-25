@@ -31,10 +31,6 @@ socialLinks:
   icon: "fab fa-github"
   url: "https://www.github.com/HenzelMoras"
 
-#- name: Stackoverflow
-#  icon: "fab fa-stack-overflow"
-#  url: "#"
-
 - name: LinkedIn
   icon: "fab fa-linkedin"
   url: "https://www.linkedin.com/in/henzel-moras/"
@@ -42,6 +38,10 @@ socialLinks:
 - name: Tryhackme
   icon: fab fa-cloudversify
   url: "https://tryhackme.com/p/s0x45ker"
+
+- name: Coursera
+  icon: "fas fa-copyright"
+  url: "https://www.coursera.org/user/ee2026b444f2f4f975be171a55d5e2fa"
 
 - name: HackTheBox
   icon: "fas fa-cube"
