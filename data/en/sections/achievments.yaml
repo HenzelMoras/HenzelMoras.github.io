@@ -13,3 +13,7 @@ achievements:
 - title: Tryhackme Badges (H4CK3R)
   image: /images/achievments/tryhackme.png
   #summary: Owasp Top 10, Burpsuite, Linux and more
+
+- title: NahamCon CTF 2021
+  image: /images/achievments/nahamcon.png
+  #summary: Owasp Top 10, Burpsuite, Linux and more
