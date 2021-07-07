@@ -1,0 +1,19 @@
+# section information
+section:
+  name: Achievements
+  id: achievements
+  enable: true
+  weight: 7
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+# Your achievements achievements
+achievements:
+- title: Tryhackme Badges (H4CK3R)
+  image: /images/achievments/tryhackme.png
+  #summary: Owasp Top 10, Burpsuite, Linux and more
+
+- title: NahamCon CTF 2021
+  image: /images/achievments/nahamcon.png
+  #summary: Owasp Top 10, Burpsuite, Linux and more
